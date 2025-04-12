@@ -1,0 +1,20 @@
+// IR Sensor Pin
+const int irSensorPin = 2; // Connect the OUT pin of IR sensor to digital pin 2
+
+void setup() {
+  pinMode(irSensorPin, INPUT);
+  Serial.begin(9600);
+  Serial.println("IR Sensor Test Starting...");
+}
+
+void loop() {
+  int sensorValue = digitalRead(irSensorPin);
+
+  if (sensorValue == LOW) {
+    Serial.println("Object Detected");
+  } else {
+    Serial.println("No Object");
+  }
+
+  delay(500); // Delay for readability
+}
