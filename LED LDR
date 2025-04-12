@@ -1,0 +1,22 @@
+const int ldrDigitalPin = 2;   // Connect D0 pin of LDR module to D2
+const int ledPin = 9;          // LED connected to pin 9
+
+void setup() {
+  pinMode(ldrDigitalPin, INPUT);
+  pinMode(ledPin, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int lightStatus = digitalRead(ldrDigitalPin);
+  Serial.print("LDR Digital Output: ");
+  Serial.println(lightStatus);
+
+  if (lightStatus == HIGH) {
+    digitalWrite(ledPin, HIGH);  // Turn on LED if it’s dark
+  } else {
+    digitalWrite(ledPin, LOW);   // Turn off LED if it’s bright
+  }
+
+  delay(500);
+}
