@@ -1,0 +1,48 @@
+// Arduino code for distance measurement using an HC-SR04 ultrasonic sensor
+
+// Define pins
+const int trigPin = 9;    // Trigger pin of the ultrasonic sensor
+const int echoPin = 10;   // Echo pin of the ultrasonic sensor
+
+// Variables
+long duration;  // Time taken for pulse to return
+int distance;   // Calculated distance in centimeters
+
+void setup() {
+  // Initialize serial communication
+  Serial.begin(9600);
+  
+  // Set pin modes
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  
+  Serial.println("Ultrasonic Distance Sensor");
+  Serial.println("-------------------------");
+}
+
+void loop() {
+  // Clear the trigger pin
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  
+  // Send a 10 microsecond pulse to trigger
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  
+  // Measure the duration of the echo pulse
+  duration = pulseIn(echoPin, HIGH);
+  
+  // Calculate the distance
+  // Speed of sound is 343 m/s = 0.0343 cm/microsecond
+  // Divide by 2 because sound travels to the object and back
+  distance = duration * 0.0343 / 2;
+  
+  // Print the distance to the Serial Monitor
+  Serial.print("Distance: ");
+  Serial.print(distance);
+  Serial.println(" cm");
+  
+  // Wait before next measurement
+  delay(500);
+}
